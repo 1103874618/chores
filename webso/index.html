@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="index.js"></script>
+</head>
+
+<body>
+
+  <pre id="log"></pre>
+  <script>
+    // helper function: log message to screen
+    function log(msg) {
+      document.getElementById('log').textContent += msg + '\n';
+    }
+    // setup websocket with callbacks
+    var ws = new WebSocket('ws://localhost:8080/');
+    ws.onmessage = function (event) {
+      console.log(event.data);
+    };
+    ws.onopen = function () {
+      log('CONNECT');
+    };
+    ws.onclose = function () {
+      log('DISCONNECT');
+    };
+    ws.onmessage = function (event) {
+      log('MESSAGE: ' + event.data);
+    };
+  </script>
+</body>
+
+</html>
